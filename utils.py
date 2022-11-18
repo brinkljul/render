@@ -92,6 +92,36 @@ class cube(object):
                       (6, 5, 1, 2),
                       (3, 0, 4, 7)]
 
+class pyramid(object):
+    def __init__(self):
+        self.corners = [(-1, -1, -1),
+                        (-1, -1, 1),
+                        (1, -1, 1),
+                        (1, -1, -1),
+                        (0, 1, 0)]
+        self.faces = [(0, 1, 2, 3),
+                      (0, 4, 1),
+                      (1, 4, 2),
+                      (2, 4, 3),
+                      (3, 4, 0)]
+
+class diamond(object):
+    def __init__(self):
+        self.corners = [(-1, 0, -1),
+                        (-1, 0, 1),
+                        (1, 0, 1),
+                        (1, 0, -1),
+                        (0, 2, 0),
+                        (0, -2, 0)]
+        self.faces = [(0, 4, 1),
+                      (1, 4, 2),
+                      (2, 4, 3),
+                      (3, 4, 0),
+                      (1, 5, 0),
+                      (2, 5, 1),
+                      (3, 5, 2),
+                      (0, 5, 3)]
+
 
 def magnitude(mat):
     return np.sqrt(np.dot(mat))

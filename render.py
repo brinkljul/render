@@ -13,16 +13,16 @@ clock = pygame.time.Clock()
 fps = 60
 
 pos = [screenwidth // 2, screenheight // 2, screenwidth // 2]
-color = (50, 50, 50)
+color = [50, 50, 50]
 scale = 1200
 speed = 0.025
 # angle = [0.5, 0.25, 0.5]
 cam_pos = [screenwidth // 2, screenheight // 2, screenwidth // 2 - 1000]
 light_pos = [screenwidth // 2 - 400, screenheight // 2 - 400, screenwidth // 2 - 1000]
 
-cube_a = utils.cube()
-cube_a.rotate_y(-0.7)
-cube_a.rotate_x(-0.45)
+obj_a = utils.cube()
+obj_a.rotate_y(-0.7)
+obj_a.rotate_x(-0.45)
 
 
 running = True
@@ -40,22 +40,54 @@ while running:
                 speed *= 0.8
             elif event.key == pygame.K_RIGHTBRACKET:
                 speed *= 1.2
+            elif event.key == pygame.K_1:
+                obj_a = utils.cube()
+                obj_a.rotate_y(-0.7)
+                obj_a.rotate_x(-0.45)
+            elif event.key == pygame.K_2:
+                obj_a = utils.pyramid()
+                obj_a.rotate_y(-0.7)
+                obj_a.rotate_x(-0.45)
+            elif event.key == pygame.K_3:
+                obj_a = utils.diamond()
+                obj_a.rotate_y(-0.7)
+                obj_a.rotate_x(-0.45)
     
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        cube_a.rotate_y(speed)
+        obj_a.rotate_y(speed)
     if keys[pygame.K_RIGHT]:
-        cube_a.rotate_y(-speed)
+        obj_a.rotate_y(-speed)
     if keys[pygame.K_UP]:
-        cube_a.rotate_x(speed)
+        obj_a.rotate_x(speed)
     if keys[pygame.K_DOWN]:
-        cube_a.rotate_x(-speed)
+        obj_a.rotate_x(-speed)
     if keys[pygame.K_SPACE]:
-        cube_a.rotate_z(speed)
+        obj_a.rotate_z(speed)
     if keys[pygame.K_LSHIFT]:
-        cube_a.rotate_z(-speed)
+        obj_a.rotate_z(-speed)
+    if keys[pygame.K_n]:
+        color = list(map(lambda x: x - 1 if x > 0 else 0, color))
+    if keys[pygame.K_m]:
+        color = list(map(lambda x: x + 1 if x < 255 else 255, color))
+    if keys[pygame.K_MINUS]:
+        scale *= 0.99
+    if keys[pygame.K_EQUALS]:
+        scale *= 1.01
+    if keys[pygame.K_w]:
+        pos[1] -= speed * 400
+    if keys[pygame.K_s]:
+        pos[1] += speed * 400
+    if keys[pygame.K_d]:
+        pos[0] += speed * 400
+    if keys[pygame.K_a]:
+        pos[0] -= speed * 400
+    if keys[pygame.K_e]:
+        pos[2] += speed * 400
+    if keys[pygame.K_q]:
+        pos[2] -= speed * 400
 
-    cube_a.draw(screen, cam_pos, color, pos, scale, light_pos)
+    obj_a.draw(screen, cam_pos, tuple(color), pos, scale, light_pos)
 
     pygame.display.update()
 
