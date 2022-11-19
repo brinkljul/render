@@ -20,7 +20,7 @@ speed = 0.025
 cam_pos = [screenwidth // 2, screenheight // 2, screenwidth // 2 - 1000]
 light_pos = [screenwidth // 2 - 400, screenheight // 2 - 400, screenwidth // 2 - 1000]
 
-obj_a = utils.cube()
+obj_a = utils.custom("teapot-lowpoly.obj")
 obj_a.rotate_y(-0.7)
 obj_a.rotate_x(-0.45)
 
@@ -50,6 +50,14 @@ while running:
                 obj_a.rotate_x(-0.45)
             elif event.key == pygame.K_3:
                 obj_a = utils.diamond()
+                obj_a.rotate_y(-0.7)
+                obj_a.rotate_x(-0.45)
+            elif event.key == pygame.K_4:
+                obj_a = utils.custom("teapot-lowpoly.obj")
+                obj_a.rotate_y(-0.7)
+                obj_a.rotate_x(-0.45)
+            elif event.key == pygame.K_5:
+                obj_a = utils.custom("cat.obj")
                 obj_a.rotate_y(-0.7)
                 obj_a.rotate_x(-0.45)
     

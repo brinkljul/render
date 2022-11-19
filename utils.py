@@ -122,6 +122,26 @@ class diamond(object):
                       (3, 5, 2),
                       (0, 5, 3)]
 
+class custom(object):
+    def __init__(self, in_file_str):
+        self.corners = []
+        self.faces = []
+        scale_mult = 10
+        if in_file_str == "cat.obj":
+            scale_mult = 0.007
+        with open(in_file_str, "r") as f:
+            f_arr = f.read().splitlines()
+        for line in f_arr:
+            if line.startswith("v "):
+                self.corners.append(tuple(map(lambda x: float(x) * scale_mult, line.split(' ')[1:]))[::-1])
+            elif line.startswith("f"):
+                line_cleanup = line[2:-1].split(" ")
+                #print(line_cleanup)
+                c_face = []
+                for point in line_cleanup:
+                    c_face.append((int(point.split("/")[0]) - 1))
+                self.faces.append(tuple(c_face))
+
 
 def magnitude(mat):
     return np.sqrt(np.dot(mat))
@@ -161,7 +181,8 @@ def keep_color_bounded(color):
 
 def lighten_color(color, face, light_pos):
     face_normal = normal_to_plane(face)
-    inc = max(0.01, np.dot(light_pos, face_normal))
+    inc = max(0.01, np.dot(light_pos, normalize(face_normal)))
+    #print(np.dot(light_pos, face_normal))
 
     res = tuple(np.add(color, inc * 20))
     res = keep_color_bounded(res)
